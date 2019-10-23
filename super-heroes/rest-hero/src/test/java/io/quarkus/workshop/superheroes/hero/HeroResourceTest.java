@@ -144,4 +144,20 @@ public class HeroResourceTest {
 			// Kept empty on purpose
 		};
 	}
+
+	@Test
+	void shouldPingLiveness() {
+		given()
+				.when().get("/health/live")
+				.then()
+				.statusCode(OK.getStatusCode());
+	}
+
+	@Test
+	void shouldPingReadiness() {
+		given()
+				.when().get("/health/ready")
+				.then()
+				.statusCode(OK.getStatusCode());
+	}
 }
