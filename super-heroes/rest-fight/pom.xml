@@ -94,6 +94,12 @@
             <version>1.12.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- availablity fault tolerance - circuit breaker-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
