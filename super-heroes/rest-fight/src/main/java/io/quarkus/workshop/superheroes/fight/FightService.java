@@ -4,6 +4,8 @@ import io.quarkus.workshop.superheroes.fight.client.Hero;
 import io.quarkus.workshop.superheroes.fight.client.HeroService;
 import io.quarkus.workshop.superheroes.fight.client.Villain;
 import io.quarkus.workshop.superheroes.fight.client.VillainService;
+import io.smallrye.reactive.messaging.annotations.Channel;
+import io.smallrye.reactive.messaging.annotations.Emitter;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -34,6 +36,10 @@ public class FightService {
 	@RestClient
 	VillainService villainService;
 
+	@Inject
+	@Channel("fights-channel")
+	Emitter<Fight> emitter;
+
 	public List<Fight> findAllFights() {
 		return Fight.listAll();
 	}
@@ -60,6 +66,10 @@ public class FightService {
 
 		fight.fightDate = Instant.now();
 		fight.persist(fight);
+
+		// added to available statistics within kafka
+		emitter.send(fight);
+
 		return fight;
 	}
 
