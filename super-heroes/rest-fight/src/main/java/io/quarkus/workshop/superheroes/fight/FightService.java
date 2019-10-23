@@ -76,4 +76,7 @@ public class FightService {
 		return fight;
 	}
 
+	public Fighters findRandomFighters() {
+		return null;
+	}
 }
