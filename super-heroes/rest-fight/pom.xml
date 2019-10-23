@@ -95,10 +95,16 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- availablity fault tolerance - circuit breaker-->
+        <!-- rest client to other microsrevices-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-client</artifactId>
+        </dependency>
+
+        <!-- to use circuit breaker -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
         </dependency>
     </dependencies>
     <build>
