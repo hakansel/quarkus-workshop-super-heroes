@@ -23,6 +23,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static io.quarkus.workshop.superheroes.fight.client.MockHeroService.*;
+import static io.quarkus.workshop.superheroes.fight.client.MockVillainService.*;
 
 @QuarkusTest
 @Testcontainers
@@ -179,5 +181,20 @@ public class FightResourceTest {
         return new TypeRef<List<Fight>>() {
             // Kept empty on purpose
         };
+    }
+
+    @Test
+    void shouldGetRandomFighters() {
+        given()
+            .when().get("/api/fights/randomfighters")
+            .then()
+            .statusCode(OK.getStatusCode())
+            .header(CONTENT_TYPE, APPLICATION_JSON)
+            .body("hero.name", Is.is(DEFAULT_HERO_NAME))
+            .body("hero.picture", Is.is(DEFAULT_HERO_PICTURE))
+            .body("hero.level", Is.is(DEFAULT_HERO_LEVEL))
+            .body("villain.name", Is.is(DEFAULT_VILLAIN_NAME))
+            .body("villain.picture", Is.is(DEFAULT_VILLAIN_PICTURE))
+            .body("villain.level", Is.is(DEFAULT_VILLAIN_LEVEL));
     }
 }
